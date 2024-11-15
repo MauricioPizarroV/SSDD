@@ -1,0 +1,31 @@
+extends ../layout/app    
+
+block contenido    
+    
+    div(class="py-5")
+        h1(class="text-4xl my-10 font-extrabold text-center")= equipo.modelo
+
+        div
+            a(href="#" class="font-bold text-gray-600 text-sm")  
+
+        div(class="mt-5 md:flex md:gap-4 rounded-md")  
+            div(class="bg-white rounded-lg flex-shrink-0")  
+                img(class="rounded-lg w-full md:w-96", src=`/uploads/${equipo.imagen}`, alt=`Imagen del registro (En caso de que el guaren cigarro no venga al rescate) ${equipo.modelo}`) 
+
+            div(class="px-5 py-10 space-y-3 flex-1")  
+                h2(class="text-2xl leading-6 font-bold text-gray-900") Información Del Equipo:
+                p= equipo.observaciones
+                p= equipo.ubicacion  
+                
+                div(class="grid grid-cols-1 md:grid-cols-2 gap-4")  
+                    h1(class="text-gray-600 font-bold text-xs") Categoria:
+                        span(class="text-gray-700 block text-lg")= equipo.categoria.nombre
+                    h1(class="text-gray-600 font-bold text-xs") Clase: 
+                        span(class="text-gray-700 block text-lg")= equipo.clase.precio 
+                    h1(class="text-gray-600 font-bold text-xs") Serial: 
+                        span(class="text-gray-700 block text-lg")= equipo.serial   
+                    h1(class="text-gray-600 font-bold text-xs") Activo Fijo: 
+                        span(class="text-gray-700 block text-lg")= equipo.AF
+
+block scripts 
+    script(src="/js/prueba.js")

@@ -1,0 +1,61 @@
+extends ../layout/admin 
+
+block contenido 
+    div.py-10
+        h1.text-4xl.my-10.font-extrabold.text-center.color SSDD|
+            span.font-normal Control e Inventario
+        h2.text-center.text-2xl.font-extrabold= pagina
+
+        if errores 
+                        div(class="max-w-md mx-auto my-10")
+                                each error in errores
+                                        p.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.font-bold= error.msg
+
+        div(class="bg-white shadow py-8 px-4 rounded mx-auto max-w-4xl my-10 md:px-10")
+             form.space-y-8(method="POST" action="/propiedades/crear")
+                input(type="hidden" name="_csrf" value= csrfToken)
+                div.space-y-8
+                    h3.text-lg.leading-6.font-medium.text-gray-900 Información General
+                    p.text-gray-600 Añade Informacion de los equipos existentes en la sede
+
+                    div
+                        label.block.text-sm.uppercase.text-gray-600.font-bold(for ="modelo") Modelo
+                        input#modelo.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(
+                        placeholder="Modelo del equipo, ej. HP Probook 440 G9" type="text" name="modelo" value = datos.modelo ? datos.modelo: '')
+                    
+                    
+                    div(class="md:flex md:gap-4 md:space-y-0")
+                        div(class="md:w-1/2")
+                            label.block.text-sm.uppercase.text-gray-600.font-bold(for ="categoria") Categoria
+                            select#categoria.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(name="categoria")
+                                option(value="") - Seleccione -
+                                each categoria in categorias 
+                                    option(value=categoria.id selected= datos.categoria ? datos.categoria == categoria.id  ? true : false : null )= categoria.nombre
+
+                        div(class="md:w-1/2")
+                            label.block.text-sm.uppercase.text-gray-600.font-bold(for ="precio") Clase
+                            select#precio.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(name="precio")
+                                option(value="") - Seleccione -
+                                    each precio in precios 
+                                        option(value=precio.id selected= datos.precio ? datos.precio == precio.id  ? true : false : null)= precio.precio
+                    div(class="md:flex md:gap-4 md:space-y-0")
+                        div(class="md:w-1/2")
+                            label.block.text-sm.uppercase.text-gray-600.font-bold(for ="serial") Numero de serie 
+                            input#serial.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(
+                            placeholder="Ingresa el numero de serie" type="text" name="serial" value = datos.numero_de_serie ? datos.numero_de_serie: '' )
+                        div(class="md:w-1/2")
+                            label.block.text-sm.uppercase.text-gray-600.font-bold(for ="AF") Activo Fijo
+                            input#AF.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(
+                            placeholder="Ingresa el numero del activo fijo" type="text" name="AF" value = datos.AF ? datos.AF: '')
+                    div
+                        label.block.text-sm.uppercase.text-gray-600.font-bold(for ="ubicacion") Ubicación 
+                        input#ubicacion.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(
+                        placeholder="Ingrese la ubicación del equipo" type="text" name="ubicacion" value = datos.ubicacion ? datos.ubicacion: '')
+                    div
+                        label.block.text-sm.uppercase.text-gray-600.font-bold(for ="observaciones") Observaciones
+                        input#observaciones.mt-2.mb-2.w-full.px-4.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(
+                        placeholder="Ingrese observaciones, ej.Equipo nuevo o en buen estado" type="text" name="observaciones" value = datos.observaciones ? datos.observaciones: '')      
+
+                    input(class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 rounded text-white font-bold uppercase cursor-pointer" type="submit" value="Registrar Equipo" )
+
+    
